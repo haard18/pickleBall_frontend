@@ -14,10 +14,10 @@ export const Navbar = () => {
                     </div>
                 </div>
                 <div className='flex gap-3 mr-4'>
-                    <button className="btn px-4 py-2 font-serif">
+                    <button className="btn btn-outline px-4 py-2 font-serif">
                         Contact Us
                     </button>
-                    <button className="btn px-4 py-2 font-serif">
+                    <button className="btn btn-outline px-4 py-2 font-serif">
                         Signup
                     </button>
                 </div>

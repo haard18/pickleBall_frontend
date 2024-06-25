@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({title,location,image}:{title:string,location:string,image:string}) => {
     return (
         <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 w-96 shadow-xl border-white border-2">
                 <figure className="px-10 pt-10">
                     <img
                         src={image}
@@ -14,7 +14,7 @@ const Card = ({title,location,image}:{title:string,location:string,image:string}
                     <h2 className="card-title">{title}</h2>
                     <p>{location}</p>
                     <div className="card-actions">
-                        <button className="btn btn-primary">Buy Now</button>
+                        <button className="btn btn-primary">Book Slot</button>
                     </div>
                 </div>
             </div>
