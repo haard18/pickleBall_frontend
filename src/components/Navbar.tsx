@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from "../assets/images/logo.png"
+import { useNavigate } from 'react-router-dom';
 export const Navbar = () => {
+    const navigate=useNavigate();
     return (
         <>
             <div className="flex justify-between mt-4 items-center ">
@@ -17,8 +19,10 @@ export const Navbar = () => {
                     <button className="btn btn-outline px-4 py-2 font-serif">
                         Contact Us
                     </button>
-                    <button className="btn btn-outline px-4 py-2 font-serif">
-                        Signup
+                    <button onClick={()=>{
+                        navigate('/auth')
+                    }} className="btn btn-outline px-4 py-2 font-serif">
+                        Signup 
                     </button>
                 </div>
             </div>

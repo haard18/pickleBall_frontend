@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = ({title,location,image}:{title:string,location:string,image:string}) => {
+const Card = ({ title, location, image }: { title: string, location: string, image: string }) => {
     return (
         <div>
             <div className="card bg-base-100 w-96 shadow-xl border-white border-2">
@@ -14,7 +14,7 @@ const Card = ({title,location,image}:{title:string,location:string,image:string}
                     <h2 className="card-title">{title}</h2>
                     <p>{location}</p>
                     <div className="card-actions">
-                        <button className="btn btn-primary">Book Slot</button>
+                        <button className="btn btn-outline">Book Slot</button>
                     </div>
                 </div>
             </div>
