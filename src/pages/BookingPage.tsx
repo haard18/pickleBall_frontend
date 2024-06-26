@@ -10,44 +10,51 @@ export const BookingPage = () => {
         <>
 
             <Navbar />
+            <div className='flex w-full justify-center '>
+                <div className="BookingsPage rounded-lg flex font-serif justify-between mt-10 bg-gray-800 p-4 w-4/5 items-center">
 
-            <div className="BookingsPage flex mt-10 bg-gray-800 p-4">
-                
-                <div className="carousal ml-10">
-                    <Carousal />
-                </div>
+                    <div className="flex flex-col justify-center items-center h-[200px] w-1/4" >
+                        <Carousal />
+                    </div>
 
-                <div className="headings">
-                    <h3 className="text-4xl">Pickle Ball Court</h3>
-                    <div className="address flex" style={{ marginRight: '50vw' }}>
-                        <div className="location-marker">
-                            <FontAwesomeIcon icon={faMapMarkerAlt} />
+                    <div className="flex gap-4 justify-center items-center">
+                        <div className="address gap-5 flex flex-col items-center" >
+                            <h3 className="text-4xl">Pickle Ball Court</h3>
+                            <div className='flex'>
+                                <div className="location-marker">
+                                    <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                </div>
+                                <p className="text-1xl w-80 text-center">
+                                    Behind Doggers Park, Opposite Veda Lawns, Near Greenwood Antica, Ankodiya Sevasi Road Vadodara, Gujarat 391330
+                                </p>
+                            </div>
                         </div>
-                        <p className="text-1xl w-60">
-                            Behind Doggers Park, Opposite Veda Lawns, Near Greenwood Antica, Ankodiya Sevasi Road Vadodara, Gujarat 391330
-                        </p>
                     </div>
-                </div>
-                <div className="likes-directions flex flex-col gap-5 mr-10">
-                    <div className="like-share flex flex-row gap-5 mr-10">
-                        <FontAwesomeIcon icon={farHeart} />
-                        <FontAwesomeIcon icon={faShareAlt} />
-                    </div>
-                    <div className="star-rattings">
-                        <div className="ratings flex flex-row gap-2  border-2 p-1 w-16">
+                    <div className="flex flex-col items-center gap-5 ">
+
+
+                        <div className="flex flex-row gap-5 ">
+                            <FontAwesomeIcon icon={farHeart} />
+                            <FontAwesomeIcon icon={faShareAlt} />
+                        </div>
+
+                        <div className="ratings flex flex-row gap-2  p-1 w-16">
                             <h1>5.00</h1>
                             <FontAwesomeIcon icon={faStar} className='mt-1' />
 
                         </div>
-                    </div>
-                    <div className="location mt-5">
-                        <h1 className='w-60'>Best Pickle ball court in <br />Manjalpur</h1>
-                        <button className="btn btn-outline">Get Directions</button>
+
+                        <div className="flex flex-col">
+
+                            <button className="btn btn-outline">
+                                Get Directions
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            
+
 
         </>
     );
