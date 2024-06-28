@@ -12,16 +12,13 @@ export const BookingPage = () => {
     const handleClickbook = () => {
         setIsClickedBooked(true);
         setIsClickedDetails(false);
-         // Update state to true when either button is clicked
+        // Update state to true when either button is clicked
     };
     const handleClickdetails = () => {
         setIsClickedDetails(true);
         setIsClickedBooked(false);
-         // Update state to true when either button is clicked
+        // Update state to true when either button is clicked
     };
-
-
-
     return (
         <>
             <Navbar />
@@ -38,7 +35,10 @@ export const BookingPage = () => {
                     </div>
                 </div>
             </div>
-            <Choose/>
+            <div className='grid grid-cols-3'>
+
+                <Choose />
+            </div>
 
         </>
     );
