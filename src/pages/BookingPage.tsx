@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Navbar from '../components/Navbar';
 import { TurffDetails } from '../components/TurffDetails';
 import { Choose } from '../components/Choose';
+import axios from 'axios';
 
 export const BookingPage = () => {
     const [isClickedBooked, setIsClickedBooked] = useState(false);
     const [isClickedDetails, setIsClickedDetails] = useState(false);
-
+    useEffect(() => {
+        const getSlots = async () => {
+            const slots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/2024-07-01,2024-07-07`);
+            console.log(slots.data.slots);
+        };
+        getSlots();
+    }, []);
     // Function to handle button clicks
     const handleClickbook = () => {
         setIsClickedBooked(true);

@@ -45,7 +45,7 @@ export const Choose = () => {
                 <FontAwesomeIcon icon={fa2} />
               </div>
               <div className="timeline-end timeline-box">
-                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw]">
+                {card3 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw]">
 
                   <p className='text-2xl '> Choose a Facility</p>
                   <button onClick={() => {
