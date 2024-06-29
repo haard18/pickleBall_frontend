@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import BookingCard from './BookingCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fa1, fa2, fa3 } from '@fortawesome/free-solid-svg-icons'
+import BookingComponent from './BookingComponent';
 export const Choose = () => {
   const [card1, setcard1] = useState(true);
   const [card2, setcard2] = useState(false);
@@ -58,11 +59,12 @@ export const Choose = () => {
             </li>
             <li>
               <hr />
-              <div className="timeline-middle">
+              <div className="timeline-middle ">
                 <FontAwesomeIcon icon={fa3} />
               </div>
-              <div className="timeline-end timeline-box">
-                SELECT SLOTS COMPONENT
+                <div className="timeline-end timeline-box flex flex-col items-center justify-between w-[80vw]">
+                <h1 className='text-2xl'>Book Your Slots</h1>
+                {card1 && <BookingComponent></BookingComponent>}
               </div>
               <hr />
             </li>

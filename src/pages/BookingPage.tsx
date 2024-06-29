@@ -5,6 +5,8 @@ import { TurffDetails } from '../components/TurffDetails';
 import { Choose } from '../components/Choose';
 import axios from 'axios';
 
+
+
 export const BookingPage = () => {
     const [isClickedBooked, setIsClickedBooked] = useState(false);
     const [isClickedDetails, setIsClickedDetails] = useState(false);
@@ -30,6 +32,8 @@ export const BookingPage = () => {
         <>
             <Navbar />
             <TurffDetails />
+            
+            
             <div className="nav-ineer flex justify-center mt-4 p-5">
                 <div className="page-nav flex justify-center gap-8 bg-gray-800 w-4/5 rounded p-8">
                     <div className="book-slots flex flex-col">
@@ -45,6 +49,10 @@ export const BookingPage = () => {
             <div className='grid grid-cols-3'>
 
                 <Choose />
+                
+            </div>
+            <div>
+            
             </div>
 
         </>
