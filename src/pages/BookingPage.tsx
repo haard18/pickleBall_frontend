@@ -4,11 +4,12 @@ import Navbar from '../components/Navbar';
 import { TurffDetails } from '../components/TurffDetails';
 import { Choose } from '../components/Choose';
 import axios from 'axios';
+import { Details } from '../components/Details';
 
 
 
 export const BookingPage = () => {
-    const [isClickedBooked, setIsClickedBooked] = useState(false);
+    const [isClickedBooked, setIsClickedBooked] = useState(true);
     const [isClickedDetails, setIsClickedDetails] = useState(false);
     useEffect(() => {
         const getSlots = async () => {
@@ -46,11 +47,17 @@ export const BookingPage = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid grid-cols-3'>
+            {isClickedBooked && <div className='grid grid-cols-3'>
 
                 <Choose />
+                {isClickedDetails && <div className='grid grid-cols-3'>
+                <Details/>
+
+                </div>}
                 
-            </div>
+            </div>}
+
+
             <div>
             
             </div>
