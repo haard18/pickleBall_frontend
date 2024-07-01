@@ -21,7 +21,7 @@ export const Choose = () => {
         <div className="time-line">
           <ul className="timeline timeline-vertical">
             <li>
-              <div className="timeline-middle">
+              <div className="timeline-middle ">
                 <FontAwesomeIcon icon={fa1} />
               </div>
               <div className="timeline-end timeline-box">

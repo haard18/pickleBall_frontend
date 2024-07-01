@@ -5,6 +5,7 @@ import { TurffDetails } from '../components/TurffDetails';
 import { Choose } from '../components/Choose';
 import axios from 'axios';
 import { Details } from '../components/Details';
+import Footer from '../components/Footer';
 
 
 
@@ -33,8 +34,8 @@ export const BookingPage = () => {
         <>
             <Navbar />
             <TurffDetails />
-            
-            
+
+
             <div className="nav-ineer flex justify-center mt-4 p-5">
                 <div className="page-nav flex justify-center gap-8 bg-gray-800 w-4/5 rounded p-8">
                     <div className="book-slots flex flex-col">
@@ -47,19 +48,22 @@ export const BookingPage = () => {
                     </div>
                 </div>
             </div>
-            {isClickedBooked && <div className='grid grid-cols-3'>
-
-                <Choose />
-                {isClickedDetails && <div className='grid grid-cols-3'>
-                <Details/>
-
+            <div className='grid grid-cols-3'>
+                {isClickedBooked && <div className="chooseComponent">
+                    <Choose />
                 </div>}
-                
+            </div>
+            {isClickedDetails && <div className="details">
+                <Details />
             </div>}
 
 
             <div>
-            
+
+            </div>
+
+            <div className='mt-20'>
+                <Footer/>
             </div>
 
         </>
