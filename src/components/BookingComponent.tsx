@@ -34,7 +34,7 @@ const BookingComponent: React.FC = () => {
         const startDate = new Date(date);
         const endDate = new Date(startDate);
         const formattedStartDate = formatDate(startDate);
-        endDate.setDate(startDate.getDate() + 7);
+        endDate.setDate(startDate.getDate() + 6);
         const formattedEndDate = formatDate(endDate);
         const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formattedStartDate},${formattedEndDate}`);
         setSlots(response.data.slots);
