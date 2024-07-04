@@ -12,7 +12,24 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+    const handleAdmin=async()=>{
+        try {
+            const response = await axios.post('https://pickleball.haardsolanki-itm.workers.dev/api/admin/signIn', {
+                phoneNo: phone,
+                password
+            });
+            if (response.data.message === 'Success') {
+                Cookies.set('authToken', response.data.token, { expires: 1 });
+                navigate('/admin');
+                console.log('Login Success');
+            } else {
+                console.log('Login Failed');
+            }
+        }catch(error){
+            console.error('Error:', error);
+        }
+    }
     const handleClick = async (endpoint: Endpoints) => {
         if (endpoint === Endpoints.signUp) {
             try {
@@ -22,7 +39,7 @@ const Register = () => {
                     phoneNo: phone,
                     password
                 });
-                
+
                 Cookies.set('authToken', response.data.token, { expires: 1 });
                 navigate('/')
                 console.log(response.data);
@@ -36,11 +53,11 @@ const Register = () => {
                     password
                 });
                 if (response.data.message === 'Success') {
-                    Cookies.set('authToken', response.data.token, { expires: 1 }); 
+                    Cookies.set('authToken', response.data.token, { expires: 1 });
                     navigate('/');
                     console.log('Login Success');
 
-                    
+
                 } else {
                     console.log('Login Failed');
                 }
@@ -72,8 +89,12 @@ const Register = () => {
                 </div>
                 <div className='flex justify-center items-center gap-4 flex-col'>
                     <button onClick={() => handleClick(signup ? Endpoints.signUp : Endpoints.signIn)} type='submit' className="btn btn-outline btn-warning">{signup ? "Sign-UP" : "Login"}</button>
-                    <p>{signup ? "Already have an Account?" : "Register for an Account"}<span className='mx-2'><button onClick={() => { setSignup(!signup) }}>Login</button></span></p>
+                    {!signup && <div className='flex justify-center items-center mt-4'>
+                        <button onClick={handleAdmin} className='btn btn-outline btn-warning'>Login as Admin</button>
+                    </div>}
+                    <p>{signup ? "Already have an Account?" : "Register for an Account"}<span className='mx-2'><button onClick={() => { setSignup(!signup) }}>{signup?'Login':"Signup"}</button></span></p>
                 </div>
+
 
             </div>
 
