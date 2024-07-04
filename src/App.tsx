@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/bookings" element={<BookingPage />} />
-        <Route path="/Admin" element={<Admin/>} />
+        <Route path="/admin" element={<Admin/>} />
       </Routes>
     </BrowserRouter>
 

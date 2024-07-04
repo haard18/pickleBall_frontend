@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 enum Endpoints {
     "signUp",
     "signIn"
@@ -10,7 +12,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate=useNavigate();
     const handleClick = async (endpoint: Endpoints) => {
         if (endpoint === Endpoints.signUp) {
             try {
@@ -20,6 +22,9 @@ const Register = () => {
                     phoneNo: phone,
                     password
                 });
+                
+                Cookies.set('authToken', response.data.token, { expires: 1 });
+                navigate('/')
                 console.log(response.data);
             } catch (error) {
                 console.error('Error:', error);
@@ -31,7 +36,11 @@ const Register = () => {
                     password
                 });
                 if (response.data.message === 'Success') {
+                    Cookies.set('authToken', response.data.token, { expires: 1 }); 
+                    navigate('/');
                     console.log('Login Success');
+
+                    
                 } else {
                     console.log('Login Failed');
                 }
