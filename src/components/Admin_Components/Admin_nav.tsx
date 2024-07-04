@@ -2,14 +2,21 @@ import React, { useState } from 'react'; // Import useState from react
 import { FaBars } from 'react-icons/fa'; // For the toggle button
 import logo from "../../assets/images/logo.png";
 import Admin_viewComponent from './Admin_viewComponent';
+import AdminAllUsers from './Admin_AllUsers';
 
 
 const AdminNav = () => {
      
     const [View, setView] = useState(true);
+    const [allUsers,setallUsers] = useState(false)
 
     function toggleView() {
         setView(!View);
+        setallUsers(false);
+    }
+    function viewUsers(){
+      setallUsers(true)
+      setView(false);
     }
 
 
@@ -27,7 +34,7 @@ const AdminNav = () => {
         <button className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">
           View Bookings
         </button>
-        <button className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+        <button className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={viewUsers}>
           All Users
         </button>
       </div>
@@ -39,6 +46,11 @@ const AdminNav = () => {
     {View && <div className="view-slots">
         <Admin_viewComponent/>
     </div>}
+    {allUsers && <div className="viewAllUsers">
+      <AdminAllUsers/>
+    </div>
+
+    }
     </>
   );
 };
