@@ -8,10 +8,10 @@ export const Navbar = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center px-4 py-2'>
+            <div className='flex justify-between items-center p-4 top-0 z-50 sticky bg-gray-700 bg-opacity-50'>
                 <div className='flex items-center'>
                     <div className='mx-2'>
-                        <img src={logo} alt="Logo" className='w-14 h-10 laptop:w-[15.4px] laptop:h-[15.8px]' />
+                        <img src={logo} alt="Logo" className='w-14 h-10 laptop:w-19 h-13' />
                     </div>
                     <div className='text-lg laptop:text-xl font-semibold'>
                         USA SPORTS
