@@ -18,7 +18,7 @@ export const Choose = () => {
   return (
     <>
       <div className="choose">
-        <div className="time-line">
+        <div className="time-line justify-start">
           <ul className="timeline timeline-vertical">
             <li>
               <div className="timeline-middle ">
@@ -29,7 +29,7 @@ export const Choose = () => {
 
                   <BookingCard onclick={handleClick1} title={"PickeBall Turf"} rate={"350"} facility={"Indoor turf"} />
 
-                  : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw]">
+                  : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
 
                     <p className='text-2xl '> Choose a Facility</p>
                     {card2 && <button onClick={() => {
@@ -45,8 +45,9 @@ export const Choose = () => {
               <div className="timeline-middle">
                 <FontAwesomeIcon icon={fa2} />
               </div>
-              <div className="timeline-end timeline-box">
-                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw]">
+              <div className="timeline-end timeline-box ">
+                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> : 
+                <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
 
                   <p className='text-2xl '> Choose a Facility</p>
                   <button onClick={() => {
@@ -62,7 +63,7 @@ export const Choose = () => {
               <div className="timeline-middle ">
                 <FontAwesomeIcon icon={fa3} />
               </div>
-              <div className="timeline-end timeline-box flex flex-col items-center justify-between w-[80vw]">
+              <div className="timeline-end timeline-box flex flex-col items-center justify-between w-[78vw] laptop:w-[80vw]">
                 <h1 className='text-2xl py-5'>Book Your Slots</h1>
                 {card3 && <BookingComponent />}
               </div>

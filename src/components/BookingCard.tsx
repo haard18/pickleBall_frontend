@@ -10,8 +10,8 @@ type BookingCardProps = {
 const BookingCard = ({ title, facility, rate, onclick }: BookingCardProps) => {
     return (
         <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
-                <figure className="pt-10">
+            <div className="card bg-base-100 w-75 shadow-xl laptop:w-96">
+                <figure className="pt-10 justify-center w-[270px] laptop:w-[390px]">
                     <img src={img} alt={title} className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">

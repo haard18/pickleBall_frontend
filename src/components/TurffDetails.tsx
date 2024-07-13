@@ -4,12 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faShareAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 export const TurffDetails = () => {
-  return (
-    <>
-    <div className='flex w-full justify-center '>
-                <div className="BookingsPage rounded-lg flex font-serif justify-between mt-10 bg-gray-800 p-4 w-4/5 items-center">
+    return (
+        <>
+            <div className='flex w-full justify-center '>
+                <div className="BookingsPage flex flex-col laptop:flex-row rounded-lg font-serif justify-between mt-10 bg-gray-800 bg-opacity-70 p-4 w-4/5 items-center">
 
-                    <div className="flex flex-col justify-center items-center h-[200px] w-1/4" >
+
+                    <div className="flex flex-col justify-center items-center h-[220px] w-85% laptop:h-[200px] laptop:w-1/4 mb-4 laptop:mb-0">
+
+
                         <Carousal />
                     </div>
 
@@ -20,7 +23,7 @@ export const TurffDetails = () => {
                                 <div className="location-marker">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                                 </div>
-                                <p className="text-1xl w-80 text-center">
+                                <p className="text-1xl w-76 text-center laptop:w-80">
                                     Behind Doggers Park, Opposite Veda Lawns, Near Greenwood Antica, Ankodiya Sevasi Road Vadodara, Gujarat 391330
                                 </p>
                             </div>
@@ -49,9 +52,9 @@ export const TurffDetails = () => {
                     </div>
                 </div>
 
-            </div>
-    
-    </>
-  )
+            </div >
+
+        </>
+    )
 }
 export default TurffDetails
