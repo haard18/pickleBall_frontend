@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import Auth from "./pages/Auth"
 import { BookingPage } from "./pages/BookingPage"
 import { Admin } from "./pages/Admin"
+import RazorpayButton from "./pages/Payment"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/bookings" element={<BookingPage />} />
         <Route path="/admin" element={<Admin/>} />
+        <Route path='/payment' element={<RazorpayButton/>}/>
       </Routes>
     </BrowserRouter>
 

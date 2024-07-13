@@ -18,7 +18,7 @@ interface SelectedSlot {
   to: string;
 }
 
-const BookingComponent: React.FC = () => {
+const MobileBookingComponent: React.FC = () => {
   const [slots, setSlots] = useState<SlotsByDate>({});
   const [selectedSlots, setSelectedSlots] = useState<SelectedSlot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,14 +29,13 @@ const BookingComponent: React.FC = () => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-
   useEffect(() => {
     const fetchSlots = async () => {
       try {
         const date = new Date();
         const startDate = new Date(date);
         const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 6);
+        endDate.setDate(startDate.getDate() + 1); // Only fetch 2 days of slots
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
         const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formattedStartDate},${formattedEndDate}`);
@@ -47,9 +46,10 @@ const BookingComponent: React.FC = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchSlots();
   }, []);
+  
 
   const toggleSlotSelection = (date: string, from: string, to: string) => {
     const selectedSlot = { date, from, to };
@@ -63,12 +63,12 @@ const BookingComponent: React.FC = () => {
 
   const bookSlots = async () => {
     try {
-      // await axios.post('https://pickleball.haardsolanki-itm.workers.dev/api/booking/bookSlots', { slots: selectedSlots });
-      // // Assuming the response will contain the updated slot data
-      // setSelectedSlots([]);
-      // const updatedSlots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formatDate(new Date())},${formatDate(new Date(Date.now() + 6 * 24 * 60 * 60 * 1000))}`);
-      // setSlots(updatedSlots.data.slots);
-      navigate('/payment');
+      await axios.post('https://pickleball.haardsolanki-itm.workers.dev/api/booking/bookSlots', { slots: selectedSlots });
+      // Assuming the response will contain the updated slot data
+      setSelectedSlots([]);
+      const updatedSlots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formatDate(new Date())},${formatDate(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000))}`);
+      setSlots(updatedSlots.data.slots);
+      navigate('/payment')
     } catch (error) {
       console.error('Error booking slots:', error);
     }
@@ -76,7 +76,7 @@ const BookingComponent: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-7 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
@@ -108,4 +108,4 @@ const BookingComponent: React.FC = () => {
   );
 };
 
-export default BookingComponent;
+export default MobileBookingComponent;

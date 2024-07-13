@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import BookingCard from './BookingCard'
+import React, { useState } from 'react';
+import BookingCard from './BookingCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fa1, fa2, fa3 } from '@fortawesome/free-solid-svg-icons'
+import { fa1, fa2, fa3 } from '@fortawesome/free-solid-svg-icons';
 import BookingComponent from './BookingComponent';
+import MobileBookingComponent from './MobileBooking';
+import { useMediaQuery } from 'usehooks-ts'
+
 export const Choose = () => {
   const [card1, setcard1] = useState(true);
   const [card2, setcard2] = useState(false);
   const [card3, setcard3] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+
   const handleClick1 = () => {
     setcard1(false);
     setcard2(true);
   }
+
   const handleClick2 = () => {
     setcard2(false);
     setcard3(true);
   }
+
   return (
     <>
       <div className="choose">
@@ -26,11 +34,8 @@ export const Choose = () => {
               </div>
               <div className="timeline-end timeline-box">
                 {card1 ?
-
                   <BookingCard onclick={handleClick1} title={"PickeBall Turf"} rate={"350"} facility={"Indoor turf"} />
-
                   : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
-
                     <p className='text-2xl '> Choose a Facility</p>
                     {card2 && <button onClick={() => {
                       setcard1(true);
@@ -46,15 +51,14 @@ export const Choose = () => {
                 <FontAwesomeIcon icon={fa2} />
               </div>
               <div className="timeline-end timeline-box ">
-                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> : 
-                <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
-
-                  <p className='text-2xl '> Choose a Facility</p>
-                  <button onClick={() => {
-                    setcard2(true);
-                    setcard3(false);
-                  }} className='btn btn-neutral '>Change</button>
-                </div>}
+                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> :
+                  <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
+                    <p className='text-2xl '> Choose a Facility</p>
+                    <button onClick={() => {
+                      setcard2(true);
+                      setcard3(false);
+                    }} className='btn btn-neutral '>Change</button>
+                  </div>}
               </div>
               <hr />
             </li>
@@ -65,14 +69,13 @@ export const Choose = () => {
               </div>
               <div className="timeline-end timeline-box flex flex-col items-center justify-between w-[78vw] laptop:w-[80vw]">
                 <h1 className='text-2xl py-5'>Book Your Slots</h1>
-                {card3 && <BookingComponent />}
+                {card3 && (isMobile ? <MobileBookingComponent /> : <BookingComponent />)}
               </div>
               <hr />
             </li>
-
           </ul>
         </div>
       </div >
     </>
-  )
+  );
 }
