@@ -54,6 +54,9 @@ export const Navbar = () => {
                     >
                         Signup 
                     </button>
+                    <button className="btn btn-outline w-full text-left px-4 py-2 text-sm mt-2">
+                        Cancellation policy
+                    </button>
                 </div>
             )}
         </>

@@ -28,7 +28,7 @@ const Home = () => {
                 <div className='flex flex-col items-center laptop:flex-row justify-center mt-3 ml-2 gap-4'>
                     <Card image={img1} title='Court 1' location='Vadodara' />
                     <Card image={img1} title='Court 2' location='Vadodara' />
-                    <Card image={img1} title='Court 3' location='Vadodara' />
+                    
                 </div>
                 <div className='mt-20'>
                     <Footer />
