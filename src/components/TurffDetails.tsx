@@ -18,7 +18,7 @@ export const TurffDetails = () => {
 
                     <div className="flex gap-4 justify-center items-center">
                         <div className="address gap-5 flex flex-col items-center" >
-                            <h3 className="text-4xl">Pickle Ball Court</h3>
+                            <h3 className="text-4xl">Pickle Ball Courts </h3>
                             <div className='flex'>
                                 <div className="location-marker">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />
