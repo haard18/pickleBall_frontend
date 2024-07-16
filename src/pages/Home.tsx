@@ -27,11 +27,11 @@ const Home = () => {
                 <h1 className='mobile:text-2xl laptop:text-4xl text-center mt-20'>Our Courts</h1>
 
                 <div className='flex flex-col items-center laptop:flex-row justify-center mt-3 ml-2 gap-4'>
-                    <Card image={img1} title='Court 1' location='Vadodara' />
-                    <Card image={img1} title='Court 2' location='Vadodara' />
+                    <Card image={img1} title='Pickle Ball ' location='Vadodara' />
+                    <Card image={img1} title='Football/Cricket' location='Vadodara' />
                     
                 </div>
-                <div className="aminities flex">
+                <div className="amenities flex justify-center mt-8 laptop:hidden">
                     <Aminities />
                 </div>
 

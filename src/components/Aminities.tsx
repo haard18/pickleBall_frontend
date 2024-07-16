@@ -7,8 +7,8 @@ export const Aminities = () => {
     return (
         <>
             <div className="aminitites flex flex-col items-center">
-                <h1 className='text-3xl'>Amenities</h1>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <h1 className='text-3xl '>Amenities</h1>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
                     <div className="flex flex-col items-center">
                         <FaTint size={24} />
                         <span>Drinking Water</span>
