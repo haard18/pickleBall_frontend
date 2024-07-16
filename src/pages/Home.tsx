@@ -4,6 +4,7 @@ import hero from "../assets/images/WhatsApp_Image_2024-06-25_at_15.57.07_42191b5
 import Card from '../components/Card'
 import img1 from "../assets/images/pckl.jpg"
 import Footer from '../components/Footer'
+import Aminities from '../components/Aminities'
 
 const Home = () => {
     return (
@@ -30,6 +31,11 @@ const Home = () => {
                     <Card image={img1} title='Court 2' location='Vadodara' />
                     
                 </div>
+                <div className="aminities flex">
+                    <Aminities />
+                </div>
+
+
                 <div className='mt-20'>
                     <Footer />
                 </div>
