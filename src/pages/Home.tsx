@@ -5,7 +5,6 @@ import Card from '../components/Card'
 import img1 from "../assets/images/pckl.jpg"
 import Footer from '../components/Footer'
 import Aminities from '../components/Aminities'
-import PickleballDetails from '../components/PickleballDetails'
 
 const Home = () => {
     return (
