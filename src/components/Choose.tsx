@@ -9,7 +9,6 @@ import { useMediaQuery } from 'usehooks-ts'
 export const Choose = () => {
   const [card1, setcard1] = useState(true);
   const [card2, setcard2] = useState(false);
-  const [card3, setcard3] = useState(false);
 
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
@@ -18,10 +17,7 @@ export const Choose = () => {
     setcard2(true);
   }
 
-  const handleClick2 = () => {
-    setcard2(false);
-    setcard3(true);
-  }
+
 
   return (
     <>
@@ -45,31 +41,15 @@ export const Choose = () => {
               </div>
               <hr />
             </li>
-            <li>
-              <hr />
-              <div className="timeline-middle">
-                <FontAwesomeIcon icon={fa2} />
-              </div>
-              <div className="timeline-end timeline-box ">
-                {card2 ? <BookingCard onclick={handleClick2} title={"Choose a facility"} rate={"350"} facility={"Indoor turf"} /> :
-                  <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
-                    <p className='text-2xl '> Choose a Facility</p>
-                    <button onClick={() => {
-                      setcard2(true);
-                      setcard3(false);
-                    }} className='btn btn-neutral '>Change</button>
-                  </div>}
-              </div>
-              <hr />
-            </li>
+
             <li>
               <hr />
               <div className="timeline-middle ">
-                <FontAwesomeIcon icon={fa3} />
+                <FontAwesomeIcon icon={fa2} />
               </div>
               <div className="timeline-end timeline-box flex flex-col items-center justify-between w-[78vw] laptop:w-[80vw]">
                 <h1 className='text-2xl py-5'>Book Your Slots</h1>
-                {card3 && (isMobile ? <MobileBookingComponent /> : <BookingComponent />)}
+                {card2 && (isMobile ? <MobileBookingComponent /> : <BookingComponent />)}
               </div>
               <hr />
             </li>
