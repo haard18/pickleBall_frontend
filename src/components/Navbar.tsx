@@ -8,7 +8,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center p-4 top-0 z-50 sticky bg-gray-700 bg-opacity-50 h-[50px] laptop:h-[60px]'>
+            <div className='flex justify-between items-center p-4 top-0 z-50 sticky bg-gray-700 bg-opacity-70 h-[50px] laptop:h-[60px]'>
                 <div className='flex items-center'>
                     <div className='mx-2'>
                         <img src={logo} alt="Logo" className='w-14 h-10 laptop:w-19 h-13' />
@@ -41,7 +41,7 @@ export const Navbar = () => {
             </div>
             {/* Dropdown menu for mobile */}
             {menuOpen && (
-                <div className='laptop:hidden flex flex-col items-start px-4 py-2'>
+                <div className='laptop:hidden flex flex-col items-start sticky top-12 z-50 px-4 py-2 bg-black bg-opacity-77'>
                     <button className="btn btn-outline mb-2 w-full text-left px-4 py-2 text-sm" onClick={() => setMenuOpen(false)}>
                         Contact Us
                     </button>

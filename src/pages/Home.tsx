@@ -5,6 +5,7 @@ import Card from '../components/Card'
 import img1 from "../assets/images/pckl.jpg"
 import Footer from '../components/Footer'
 import Aminities from '../components/Aminities'
+import PickleballDetails from '../components/PickleballDetails'
 
 const Home = () => {
     return (
@@ -24,7 +25,7 @@ const Home = () => {
                 </div>
 
                 <hr className='h-4 border-double' />
-                <h1 className='mobile:text-2xl laptop:text-4xl text-center mt-20'>Our Courts</h1>
+                <h1 className='mobile:text-2xl laptop:text-4xl text-center mt-20'>Sports </h1>
 
                 <div className='flex flex-col items-center laptop:flex-row justify-center mt-3 ml-2 gap-4'>
                     <Card image={img1} title='Pickle Ball ' location='Vadodara' />
@@ -34,6 +35,8 @@ const Home = () => {
                 <div className="amenities flex justify-center mt-8 laptop:hidden">
                     <Aminities />
                 </div>
+
+            
 
 
                 <div className='mt-20'>
