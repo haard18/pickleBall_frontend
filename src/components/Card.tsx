@@ -1,6 +1,7 @@
 import { faFutbol, faTableTennisPaddleBall } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
+import cardpickel from '../assets/card_image/cardpickel.jpg'
 import { useNavigate } from 'react-router-dom'
 const Card = ({ title, location, image, rate }: { title: string, location: string, image: string, rate: string }) => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Card = ({ title, location, image, rate }: { title: string, location: strin
             <div className="card bg-base-100 w-96 shadow-xl border-gray border">
                 <figure className="">
                     <img
-                        src={image}
+                        src={title==="Pickle Ball"?cardpickel:image}
                         alt="Turf Image"
                     />
                 </figure>
