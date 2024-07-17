@@ -1,27 +1,30 @@
 import React from 'react'
-
+import image1 from '../assets/carousal_pickleball/car1.jpg'
+import image2 from '../assets/carousal_pickleball/car2.jpg'
+import image3 from '../assets/carousal_pickleball/car3.jpg'
+import image4 from '../assets/carousal_pickleball/car4.jpg'
 export const Carousal = () => {
     return (
         <>
             <div className="carousel w-full " style={{ height: '400px' }}>
                 <div id="item1" className="carousel-item w-full">
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg"
+                        src={image1}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item2" className="carousel-item w-full">
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.jpg"
+                        src={image2}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item3" className="carousel-item w-full">
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg"
+                        src={image3}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item4" className="carousel-item w-full">
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg"
+                        src={image4}
                         className="w-full rounded-lg" />
                 </div>
             </div>
