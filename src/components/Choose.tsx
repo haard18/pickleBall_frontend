@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import BookingCard from './BookingCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fa1, fa2 } from '@fortawesome/free-solid-svg-icons';

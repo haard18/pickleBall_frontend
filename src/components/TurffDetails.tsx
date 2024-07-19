@@ -1,4 +1,3 @@
-import React from 'react'
 import Carousal from '../components/Carousal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faShareAlt, faStar } from '@fortawesome/free-solid-svg-icons';

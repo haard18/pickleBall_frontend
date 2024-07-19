@@ -1,4 +1,3 @@
-import React from 'react'
 import img from "../assets/images/pckl.jpg"
 type BookingCardProps = {
     title: string;
