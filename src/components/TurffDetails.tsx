@@ -19,17 +19,17 @@ export const TurffDetails = () => {
                     <div className="flex gap-4 justify-center items-center">
                         <div className="address gap-5 flex flex-col items-center" >
                             <h3 className="text-4xl">Pickle Ball Court</h3>
-                            <div className='flex'>
+                            <div className='flex justify-center items-center'>
                                 <div className="location-marker">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                                 </div>
-                                <p className="text-1xl w-76 text-center laptop:w-80">
+                                <p className="text-1xl w-76 text ml-2 laptop:w-80">
                                     Behind Doggers Park, Opposite Veda Lawns, Near Greenwood Antica, Ankodiya Sevasi Road Vadodara, Gujarat 391330
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center gap-5 ">
+                    <div className="flex flex-col items-center gap-5 mt-3 ">
 
 
                         <div className="flex flex-row gap-5 ">
