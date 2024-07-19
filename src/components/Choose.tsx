@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BookingCard from './BookingCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fa1, fa2, fa3 } from '@fortawesome/free-solid-svg-icons';
+import { fa1, fa2 } from '@fortawesome/free-solid-svg-icons';
 import BookingComponent from './BookingComponent';
 import MobileBookingComponent from './MobileBooking';
 import { useMediaQuery } from 'usehooks-ts'
