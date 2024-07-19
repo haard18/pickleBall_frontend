@@ -19,8 +19,8 @@ export const TurffDetails = () => {
                     <div className="flex gap-4 justify-center items-center">
                         <div className="address gap-5 flex flex-col items-center" >
                             <h3 className="text-4xl">Pickle Ball Court</h3>
-                            <div className='flex justify-center items-center'>
-                                <div className="location-marker">
+                            <div className='flex gap-2'>
+                                <div className="location-marker ">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                                 </div>
                                 <p className="text-1xl w-76 text ml-2 laptop:w-80">
@@ -29,10 +29,11 @@ export const TurffDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center gap-5 mt-3 ">
+                    <div className="right">
+                    <div className="flex flex-row items-center gap-20 mt-3 mt-10 laptop:flex-col ">
 
 
-                        <div className="flex flex-row gap-5 ">
+                        <div className="flex flex-row gap-5 laptop:gap-5 ">
                             <FontAwesomeIcon icon={farHeart} />
                             <FontAwesomeIcon icon={faShareAlt} />
                         </div>
@@ -43,13 +44,16 @@ export const TurffDetails = () => {
 
                         </div>
 
-                        <div className="flex flex-col">
-
-                            <button className="btn btn-outline">
-                                Get Directions
-                            </button>
-                        </div>
                     </div>
+                    <div className="getdirections mt-5">
+                            <div className="flex flex-col">
+
+                                <button className="btn btn-outline">
+                                    Get Directions
+                                </button>
+                            </div>
+                        </div>
+                        </div>
                 </div>
 
             </div >
