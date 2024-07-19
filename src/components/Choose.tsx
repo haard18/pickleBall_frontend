@@ -31,8 +31,8 @@ export const Choose = () => {
               <div className="timeline-end timeline-box">
                 {card1 ?
                   <BookingCard onclick={handleClick1} title={"PickeBall Turf"} rate={"350"} facility={"Indoor turf"} />
-                  : <div className="timeline-end timeline-box flex items-center justify-between w-[40vw] flex-col laptop:flex-row">
-                    <p className='text-2xl '> Choose a Facility</p>
+                  : <div className="timeline-end flex items-center justify-between w-[68vw] flex-col laptop:flex-row laptop:w-[40vw]">
+                    <p className='text-xl mb-2'> Choose a Facility</p>
                     {card2 && <button onClick={() => {
                       setcard1(true);
                       setcard2(false);

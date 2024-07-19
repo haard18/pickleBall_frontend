@@ -81,12 +81,12 @@ const BookingComponent: React.FC = () => {
           <div>Loading...</div>
         ) : (
           Object.entries(slots).map(([date, slotArray]) => (
-            <div key={date} className="border p-4 w">
+            <div key={date} className="border rounded-md p-4 w">
               <h2 className="font-bold text-lg">{date}</h2>
               {slotArray.map(({ from, to, isBooked }) => (
                 <button
                   key={from}
-                  className={`block w-full text-left my-1 p-2 ${isBooked ? 'bg-red-500 text-white' : selectedSlots.find(slot => slot.date === date && slot.from === from && slot.to === to) ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                  className={`block rounded-lg w-full btn-primary text-left my-1 p-2 ${isBooked ? 'bg-red-500 text-white' : selectedSlots.find(slot => slot.date === date && slot.from === from && slot.to === to) ? 'bg-blue-500 text-black font-semibold' : 'bg-gray-200'}`}
                   onClick={() => !isBooked && toggleSlotSelection(date, from, to)}
                   disabled={isBooked}
                 >
