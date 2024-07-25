@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Navbar from '../components/Navbar';
 import { TurffDetails } from '../components/TurffDetails';
 import { Choose } from '../components/Choose';
-import axios from 'axios';
+// import axios from 'axios';
 import { Details } from '../components/Details';
 import Footer from '../components/Footer';
 
@@ -12,13 +12,7 @@ import Footer from '../components/Footer';
 export const BookingPage = () => {
     const [isClickedBooked, setIsClickedBooked] = useState(true);
     const [isClickedDetails, setIsClickedDetails] = useState(false);
-    useEffect(() => {
-        const getSlots = async () => {
-            const slots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/2024-07-01,2024-07-07`);
-            console.log(slots.data.slots);
-        };
-        getSlots();
-    }, []);
+   
     // Function to handle button clicks
     const handleClickbook = () => {
         setIsClickedBooked(true);
@@ -63,7 +57,7 @@ export const BookingPage = () => {
             </div>
 
             <div className='mt-20'>
-                <Footer/>
+                <Footer />
             </div>
 
         </>

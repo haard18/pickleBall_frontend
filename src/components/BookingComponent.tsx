@@ -1,111 +1,110 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { format, addDays, subDays, startOfToday } from 'date-fns';
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Slot {
-  from: string;
-  to: string;
-  isBooked: boolean;
-}
-
-interface SlotsByDate {
-  [date: string]: Slot[];
-}
-
-interface SelectedSlot {
+  id: string;
   date: string;
   from: string;
   to: string;
+  isBooked: boolean;
+  courtId: string;
 }
 
 const BookingComponent: React.FC = () => {
-  const [slots, setSlots] = useState<SlotsByDate>({});
-  const [selectedSlots, setSelectedSlots] = useState<SelectedSlot[]>([]);
+  const [slots, setSlots] = useState<Record<string, Slot[]>>({});
+  const [selectedSlots, setSelectedSlots] = useState<Slot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate=useNavigate();
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed in JavaScript
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const [startDate, setStartDate] = useState(startOfToday());
+
+  const getSlots = async (start: Date, end: Date) => {
+    setIsLoading(true);
+    try {
+      // const sport = localStorage.getItem('sport') || 'cricket';
+      const formattedStart = format(start, 'yyyy-MM-dd');
+      const formattedEnd = format(end, 'yyyy-MM-dd');
+
+      const sport = localStorage.getItem('sport'); // Default to 'cricket' if not found
+      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : 'pickleball1'}/${formattedStart}/${formattedEnd}`);
+      setSlots(
+        response.data.slots.reduce((acc: Record<string, Slot[]>, slot: Slot) => {
+          const date = new Date(slot.date).toLocaleDateString();
+          if (!acc[date]) acc[date] = [];
+          acc[date].push(slot);
+          return acc;
+        }, {})
+      );
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching slots:', error);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const date = new Date();
-        const startDate = new Date(date);
-        const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 6);
-        const formattedStartDate = formatDate(startDate);
-        const formattedEndDate = formatDate(endDate);
-        const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formattedStartDate},${formattedEndDate}`);
-        setSlots(response.data.slots);
-      } catch (error) {
-        console.error('Error fetching slots:', error);
-      } finally {
-        setIsLoading(false);
+    getSlots(startDate, addDays(startDate, 6));
+  }, [startDate]);
+
+  const toggleSlotSelection = (slot: Slot) => {
+    setSelectedSlots(prevSelectedSlots => {
+      const isSelected = prevSelectedSlots.find(s => s.id === slot.id);
+      if (isSelected) {
+        return prevSelectedSlots.filter(s => s.id !== slot.id);
+      } else {
+        return [...prevSelectedSlots, slot];
       }
-    };
-
-    fetchSlots();
-  }, []);
-
-  const toggleSlotSelection = (date: string, from: string, to: string) => {
-    const selectedSlot = { date, from, to };
-    const index = selectedSlots.findIndex(slot => slot.date === date && slot.from === from && slot.to === to);
-    if (index !== -1) {
-      setSelectedSlots(selectedSlots.filter(slot => slot.date !== date || slot.from !== from || slot.to !== to));
-    } else {
-      setSelectedSlots([...selectedSlots, selectedSlot]);
-    }
+    });
   };
 
-  const bookSlots = async () => {
-    try {
-      // await axios.post('https://pickleball.haardsolanki-itm.workers.dev/api/booking/bookSlots', { slots: selectedSlots });
-      // // Assuming the response will contain the updated slot data
-      // setSelectedSlots([]);
-      // const updatedSlots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formatDate(new Date())},${formatDate(new Date(Date.now() + 6 * 24 * 60 * 60 * 1000))}`);
-      // setSlots(updatedSlots.data.slots);
-      navigate('/payment');
-    } catch (error) {
-      console.error('Error booking slots:', error);
-    }
+  const bookSlots = () => {
+    console.log('Booking slots:', selectedSlots);
+    // Add booking logic here
   };
 
   return (
-    <>
+    <div className="p-4">
+      <div className="flex justify-between mb-4">
+        <button onClick={() => setStartDate(subDays(startDate, 7))} className="btn  btn-outline">
+          <FontAwesomeIcon icon={faCaretLeft} />
+
+        </button>
+        <button onClick={() => setStartDate(addDays(startDate, 7))} className="btn  btn-outline">
+          <FontAwesomeIcon icon={faCaretRight} />
+        </button>
+      </div>
       <div className="grid grid-cols-7 gap-4">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
           Object.entries(slots).map(([date, slotArray]) => (
-            <div key={date} className="border rounded-md p-4 w">
+            <div key={date} className="border rounded-md p-4 w-full">
               <h2 className="font-bold text-lg">{date}</h2>
-              {slotArray.map(({ from, to, isBooked }) => (
+              {slotArray.map(slot => (
                 <button
-                  key={from}
-                  className={`block rounded-lg w-full btn-primary text-left my-1 p-2 ${isBooked ? 'bg-red-500 text-white' : selectedSlots.find(slot => slot.date === date && slot.from === from && slot.to === to) ? 'bg-blue-500 text-black font-semibold' : 'bg-gray-200'}`}
-                  onClick={() => !isBooked && toggleSlotSelection(date, from, to)}
-                  disabled={isBooked}
+                  key={slot.id}
+                  className={`block rounded-lg w-full btn-primary text-left my-1 p-2 ${slot.isBooked ? 'bg-red-500 text-white' : selectedSlots.find(s => s.id === slot.id) ? 'bg-blue-500 text-black font-semibold' : 'bg-gray-200'}`}
+                  onClick={() => !slot.isBooked && toggleSlotSelection(slot)}
+                  disabled={slot.isBooked}
                 >
-                  {`${from.split(':')[0]}:${from.split(':')[1]} - ${to.split(':')[0]}:${to.split(':')[1]}`}
+                  {`${slot.from} - ${slot.to}`}
                 </button>
               ))}
             </div>
           ))
         )}
+        {!isLoading && selectedSlots.length > 0 && (
+          <div className="col-span-7 flex justify-start mt-4">
+            <button className="bg-green-500 text-white p-2" onClick={bookSlots}>
+              Book Selected Slots
+            </button>
+          </div>
+        )}
       </div>
-      {!isLoading && selectedSlots.length > 0 && (
-        <div className="flex justify-start">
-          <button className="col-span-2 mt-4 bg-green-500 text-white p-2" onClick={bookSlots}>
-            Book Selected Slots
-          </button>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
 export default BookingComponent;
+

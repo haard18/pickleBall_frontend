@@ -22,6 +22,7 @@ const Card = ({ title, location, image, rate }: { title: string, location: strin
                           {title === "Pickle Ball" ?<FontAwesomeIcon icon={faTableTennisPaddleBall} />: <FontAwesomeIcon icon={faFutbol} />}
                         </div>
                         <button onClick={() => {
+                            localStorage.setItem('sport',title==='Pickle Ball'?'pickleball':'cricket')
                             navigate('/bookings')
                         }} className="btn btn-outline">Book Slot</button>
                     </div>
