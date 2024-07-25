@@ -1,136 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { format, addDays, startOfToday } from 'date-fns';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface Slot {
-  from: string;
-  to: string;
-  isBooked: boolean;
-}
-
-interface SlotsByDate {
-  [date: string]: Slot[];
-}
-
-interface SelectedSlot {
+  id: string;
   date: string;
   from: string;
   to: string;
+  isBooked: boolean;
+  courtId: string;
 }
 
 const MobileBookingComponent: React.FC = () => {
-  const [slots, setSlots] = useState<SlotsByDate>({});
-  const [selectedSlots, setSelectedSlots] = useState<SelectedSlot[]>([]);
+  const [slots, setSlots] = useState<Slot[]>([]);
+  const [selectedSlots, setSelectedSlots] = useState<Slot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [dates, setDates] = useState<string[]>([]);
-  const navigate = useNavigate();
+  const [currentDate, setCurrentDate] = useState(startOfToday());
 
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed in JavaScript
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const getSlots = async (start: Date, end: Date) => {
+    setIsLoading(true);
+    try {
+      const sport = localStorage.getItem('sport') || 'cricket';
+      const formattedStart = format(start, 'yyyy-MM-dd');
+      const formattedEnd = format(end, 'yyyy-MM-dd');
+
+      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : 'pickleball1'}/${formattedStart}/${formattedEnd}`);
+      setSlots(response.data.slots);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching slots:', error);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const date = new Date();
-        const startDate = new Date(date);
-        const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 7); // Only fetch 2 days of slots
-        const formattedStartDate = formatDate(startDate);
-        const formattedEndDate = formatDate(endDate);
-        const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formattedStartDate},${formattedEndDate}`);
-        setSlots(response.data.slots);
-        setDates(Object.keys(response.data.slots));
-      } catch (error) {
-        console.error('Error fetching slots:', error);
-      } finally {
-        setIsLoading(false);
+    getSlots(currentDate, addDays(currentDate, 6));
+  }, [currentDate]);
+
+  const toggleSlotSelection = (slot: Slot) => {
+    setSelectedSlots(prevSelectedSlots => {
+      const isSelected = prevSelectedSlots.find(s => s.id === slot.id);
+      if (isSelected) {
+        return prevSelectedSlots.filter(s => s.id !== slot.id);
+      } else {
+        return [...prevSelectedSlots, slot];
       }
-    };
+    });
+  };
 
-    fetchSlots();
-  }, []);
+  const bookSlots = () => {
+    console.log('Booking slots:', selectedSlots);
+    // Add booking logic here
+  };
 
-  const toggleSlotSelection = (date: string, from: string, to: string) => {
-    const selectedSlot = { date, from, to };
-    const index = selectedSlots.findIndex(slot => slot.date === date && slot.from === from && slot.to === to);
-    if (index !== -1) {
-      setSelectedSlots(selectedSlots.filter(slot => slot.date !== date || slot.from !== from || slot.to !== to));
-    } else {
-      setSelectedSlots([...selectedSlots, selectedSlot]);
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setCurrentDate(date);
     }
   };
 
-  const bookSlots = async () => {
-    try {
-      await axios.post('https://pickleball.haardsolanki-itm.workers.dev/api/booking/bookSlots', { slots: selectedSlots });
-      // Assuming the response will contain the updated slot data
-      setSelectedSlots([]);
-      const updatedSlots = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${formatDate(new Date())},${formatDate(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000))}`);
-      setSlots(updatedSlots.data.slots);
-      navigate('/payment')
-    } catch (error) {
-      console.error('Error booking slots:', error);
-    }
-  };
+  // Filter slots for the current date
+  const currentDateString = format(currentDate, 'yyyy-MM-dd');
+  const currentDaySlots = slots.filter(slot => format(new Date(slot.date), 'yyyy-MM-dd') === currentDateString);
 
-  const handlePreviousDate = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
-  const handleNextDate = () => {
-    if (currentIndex < dates.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
+  // Format date heading as "25 July, 2024"
+  const formattedDateHeading = format(currentDate, 'd MMMM, yyyy');
+
   return (
-    <>
+    <div className="p-4">
+      <div className="mb-4">
+        <DatePicker
+          selected={currentDate}
+          onChange={(date: Date | null) => handleDateChange(date)}
+          dateFormat="yyyy-MM-dd"
+          minDate={startOfToday()} // Set the minimum date to today
+          className="w-full p-2 border rounded"
+        />
+      </div>
       <div className="grid grid-cols-1 gap-4">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div key={dates[currentIndex]} className="border p-4 w">
-
-            <div className='flex justify-between items-center gap-4'>
-
-              <button className="btn  btn-outline" onClick={handlePreviousDate}>
-                <FontAwesomeIcon icon={faCaretLeft} />
-              </button>
-              <h2 className="font-bold text-lg">{dates[currentIndex]}</h2>
-              <button className="btn btn-outline" onClick={handleNextDate}>
-                <FontAwesomeIcon icon={faCaretRight} />
-              </button> 
-            </div>
-            {slots[dates[currentIndex]].map(({ from, to, isBooked }) => (
+          <div key={currentDateString} className="border rounded-md p-4 w-full">
+            <h2 className="font-bold text-lg mb-2">{formattedDateHeading}</h2>
+            {currentDaySlots.map(slot => (
               <button
-                key={from}
-                className={`block w-full btn-primary text-center rounded-lg my-1 p-2 ${isBooked ? 'bg-red-500 text-white' : selectedSlots.find(slot => slot.date === dates[currentIndex] && slot.from === from && slot.to === to) ? 'bg-blue-500 text-black font-semibold' : 'bg-gray-200'}`}
-                onClick={() => !isBooked && toggleSlotSelection(dates[currentIndex], from, to)}
-                disabled={isBooked}
+                key={slot.id}
+                className={`block rounded-lg w-full btn-primary text-left my-1 p-2 ${slot.isBooked ? 'bg-red-500 text-white' : selectedSlots.find(s => s.id === slot.id) ? 'bg-blue-500 text-black font-semibold' : 'bg-gray-200'}`}
+                onClick={() => !slot.isBooked && toggleSlotSelection(slot)}
+                disabled={slot.isBooked}
               >
-                {`${from.split(':')[0]}:${from.split(':')[1]} - ${to.split(':')[0]}:${to.split(':')[1]}`}
+                {`${slot.from} - ${slot.to}`}
               </button>
             ))}
           </div>
-
+        )}
+        {!isLoading && selectedSlots.length > 0 && (
+          <div className="flex justify-start mt-4">
+            <button className="bg-green-500 text-white p-2" onClick={bookSlots}>
+              Book Selected Slots
+            </button>
+          </div>
         )}
       </div>
-
-      {!isLoading && selectedSlots.length > 0 && (
-        <div className="flex justify-start">
-          <button className="col-span-2 mt-4 bg-green-500 text-white p-2" onClick={bookSlots}>
-            Book Selected Slots
-          </button>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
