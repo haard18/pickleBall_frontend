@@ -3,28 +3,33 @@ import image1 from '../assets/carousal_pickleball/car1.jpg'
 import image2 from '../assets/carousal_pickleball/car2.jpg'
 import image3 from '../assets/carousal_pickleball/car3.jpg'
 import image4 from '../assets/carousal_pickleball/car4.jpg'
-export const Carousal = () => {
+import turf1  from '../assets/carousal_turf/turf1.jpg'
+import turf2  from '../assets/carousal_turf/turf2.jpg'
+import turf3  from '../assets/carousal_turf/turf3.jpg'
+import turf4  from '../assets/carousal_turf/turf4.jpg'
+export const Carousal = ({title}:{title:string|null}) => {
+
     return (
         <>
             <div className="carousel w-full " style={{ height: '400px' }}>
                 <div id="item1" className="carousel-item w-full">
                     <img
-                        src={image1}
+                        src={title==="Pickleball" ? image1 : turf1}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item2" className="carousel-item w-full">
                     <img
-                        src={image2}
+                        src={title==="Pickleball" ? image2 : turf2}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item3" className="carousel-item w-full">
                     <img
-                        src={image3}
+                        src={title==="Pickleball" ? image3 : turf3}
                         className="w-full rounded-lg" />
                 </div>
                 <div id="item4" className="carousel-item w-full">
                     <img
-                        src={image4}
+                        src={title==="Pickleball" ? image4 : turf4}
                         className="w-full rounded-lg" />
                 </div>
             </div>

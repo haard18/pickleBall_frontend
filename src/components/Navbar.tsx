@@ -14,7 +14,7 @@ export const Navbar = () => {
                         <img src={logo} alt="Logo" className='w-14 h-10 laptop:w-19 h-13' />
                     </div>
                     <div className='text-lg laptop:text-xl font-semibold'>
-                        USA SPORTS
+                        <a href="/">USA SPORTS</a>
                     </div>
                 </div>
                 <div className='flex items-center'>

@@ -2,7 +2,7 @@ import Carousal from '../components/Carousal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faShareAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-export const TurffDetails = ({ title }: { title: string }) => {
+export const TurffDetails = ({ title }: { title: string|null }) => {
     return (
         <>
             <div className='flex w-full justify-center '>
@@ -12,12 +12,12 @@ export const TurffDetails = ({ title }: { title: string }) => {
                     <div className="flex flex-col justify-center items-center h-[220px] w-85% laptop:h-[200px] laptop:w-1/4 mb-4 laptop:mb-0">
 
 
-                        <Carousal />
+                        <Carousal title={title?title?.charAt(0).toUpperCase() + title?.slice(1):"TITLE"} />
                     </div>
 
                     <div className="flex gap-4 justify-center items-center">
                         <div className="address gap-5 flex flex-col items-center" >
-                            <h3 className="text-2xl">{title}</h3>
+                            <h3 className="text-2xl">{title?title?.charAt(0).toUpperCase() + title?.slice(1):"TITLE"}</h3>
                             <div className='flex gap-2'>
                                 <div className="location-marker ">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />
@@ -56,7 +56,7 @@ export const TurffDetails = ({ title }: { title: string }) => {
                     </div>
                 </div>
 
-            </div >
+            </div>
 
         </>
     )

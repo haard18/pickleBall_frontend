@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 
 
 export const BookingPage = () => {
+    const sport=localStorage.getItem('sport');
     const [isClickedBooked, setIsClickedBooked] = useState(true);
     const [isClickedDetails, setIsClickedDetails] = useState(false);
    
@@ -27,7 +28,7 @@ export const BookingPage = () => {
     return (
         <>
             <Navbar />
-            <TurffDetails />
+            <TurffDetails title={sport}/>
 
 
             <div className="nav-ineer flex justify-center mt-4 h-[60px]">
