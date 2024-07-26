@@ -16,7 +16,9 @@ const AdminNav = () => {
 
   function viewUsers() {
     setAllUsers(true);
+    setViewBookings(false);
     setView(false);
+
   }
   function viewBooking() {
     setAllUsers(false);

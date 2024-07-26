@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { format, addDays, subDays, startOfToday } from 'date-fns';
+import { format, addDays, subDays, startOfToday, isBefore } from 'date-fns';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -22,11 +22,9 @@ const BookingComponent: React.FC = () => {
   const getSlots = async (start: Date, end: Date) => {
     setIsLoading(true);
     try {
-      // const sport = localStorage.getItem('sport') || 'cricket';
       const formattedStart = format(start, 'yyyy-MM-dd');
       const formattedEnd = format(end, 'yyyy-MM-dd');
-
-      const sport = localStorage.getItem('sport'); // Default to 'cricket' if not found
+      const sport = localStorage.getItem('sport') || 'cricket';
       const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : 'pickleball1'}/${formattedStart}/${formattedEnd}`);
       setSlots(
         response.data.slots.reduce((acc: Record<string, Slot[]>, slot: Slot) => {
@@ -63,14 +61,23 @@ const BookingComponent: React.FC = () => {
     // Add booking logic here
   };
 
+  // Check if the current start date is before today
+  const isPreviousDisabled = isBefore(startDate, startOfToday());
+
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
-        <button onClick={() => setStartDate(subDays(startDate, 7))} className="btn  btn-outline">
+        <button 
+          onClick={() => setStartDate(subDays(startDate, 7))}
+          className="btn btn-outline"
+          disabled={isPreviousDisabled}
+        >
           <FontAwesomeIcon icon={faCaretLeft} />
-
         </button>
-        <button onClick={() => setStartDate(addDays(startDate, 7))} className="btn  btn-outline">
+        <button 
+          onClick={() => setStartDate(addDays(startDate, 7))}
+          className="btn btn-outline"
+        >
           <FontAwesomeIcon icon={faCaretRight} />
         </button>
       </div>
@@ -107,4 +114,3 @@ const BookingComponent: React.FC = () => {
 };
 
 export default BookingComponent;
-

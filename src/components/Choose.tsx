@@ -17,7 +17,7 @@ export const Choose = () => {
     setcard2(true);
   }
 
-
+  const title=localStorage.getItem('sport');
 
   return (
     <>
@@ -30,7 +30,7 @@ export const Choose = () => {
               </div>
               <div className="timeline-end timeline-box">
                 {card1 ?
-                  <BookingCard onclick={handleClick1} title={"PickeBall Turf"} rate={"350"} facility={"Indoor turf"} />
+                  <BookingCard onclick={handleClick1} title={title} rate={"350"} facility={"Indoor turf"} />
                   : <div className="timeline-end flex items-center justify-between w-[68vw] flex-col laptop:flex-row laptop:w-[40vw]">
                     <p className='text-xl mb-2'> Choose a Facility</p>
                     {card2 && <button onClick={() => {

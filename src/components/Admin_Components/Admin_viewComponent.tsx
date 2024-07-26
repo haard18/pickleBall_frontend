@@ -18,7 +18,7 @@ const Admin_viewComponent: React.FC = () => {
   const [selectedSlots, setSelectedSlots] = useState<Slot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState(startOfToday());
-  const [sport, setSport] = useState('cricket'); // State to track selected sport
+  const [sport, setSport] = useState('cricket');
 
   const getSlots = async (start: Date, end: Date) => {
     setIsLoading(true);
@@ -26,14 +26,12 @@ const Admin_viewComponent: React.FC = () => {
       const formattedStart = format(start, 'yyyy-MM-dd');
       const formattedEnd = format(end, 'yyyy-MM-dd');
 
-      // Determine the endpoint based on the selected sport
       const response = await axios.get(
         `https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${
           sport === 'cricket' ? 'cricket' : sport === 'pickleball2' ? 'pickleball2' : 'pickleball1'
         }/${formattedStart}/${formattedEnd}`
       );
 
-      // Organize the slots by date
       setSlots(
         response.data.slots.reduce((acc: Record<string, Slot[]>, slot: Slot) => {
           const date = new Date(slot.date).toLocaleDateString();
@@ -51,7 +49,7 @@ const Admin_viewComponent: React.FC = () => {
 
   useEffect(() => {
     getSlots(startDate, addDays(startDate, 6));
-  }, [startDate, sport]); // Re-fetch slots when the sport changes
+  }, [startDate, sport]);
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots((prevSelectedSlots) => {
@@ -64,9 +62,41 @@ const Admin_viewComponent: React.FC = () => {
     });
   };
 
-  const bookSlots = () => {
-    console.log('Booking slots:', selectedSlots);
-    // Add booking logic here
+  const lockSlots = async () => {
+    try {
+      for (const slot of selectedSlots) {
+        const response = await axios.put('https://pickleball.haardsolanki-itm.workers.dev/api/booking/lockSlot', {
+          from: slot.from,
+          to: slot.to,
+          date: slot.date,
+          sport,
+        });
+        console.log('Lock slot response:', response.data);
+      }
+      console.log('Slots locked successfully:', selectedSlots);
+      setSelectedSlots([]); // Clear selected slots after booking
+      getSlots(startDate, addDays(startDate, 6)); // Refresh slots
+    } catch (error) {
+      console.error('Error locking slots:', error);
+    }
+  };
+
+  const unlockSlots = async () => {
+    try {
+      for (const slot of selectedSlots) {
+        await axios.put('https://pickleball.haardsolanki-itm.workers.dev/api/booking/unlockSlot', {
+          from: slot.from,
+          to: slot.to,
+          date: slot.date,
+          sport,
+        });
+      }
+      console.log('Selected slots unlocked successfully');
+      setSelectedSlots([]); // Clear selected slots after unlocking
+      getSlots(startDate, addDays(startDate, 6)); // Refresh slots
+    } catch (error) {
+      console.error('Error unlocking slots:', error);
+    }
   };
 
   return (
@@ -119,8 +149,7 @@ const Admin_viewComponent: React.FC = () => {
                       ? 'bg-blue-500 text-black font-semibold'
                       : 'bg-gray-200'
                   }`}
-                  onClick={() => !slot.isBooked && toggleSlotSelection(slot)}
-                  disabled={slot.isBooked}
+                  onClick={() => toggleSlotSelection(slot)} // Always allow toggling
                 >
                   {`${slot.from} - ${slot.to}`}
                 </button>
@@ -130,8 +159,11 @@ const Admin_viewComponent: React.FC = () => {
         )}
         {!isLoading && selectedSlots.length > 0 && (
           <div className="col-span-7 flex justify-start mt-4">
-            <button className="bg-green-500 text-white p-2" onClick={bookSlots}>
-              Book Selected Slots
+            <button className="bg-green-500 text-white p-2" onClick={lockSlots}>
+              Lock Selected Slots
+            </button>
+            <button className="bg-yellow-500 text-white p-2 ml-2" onClick={unlockSlots}>
+              Unlock Selected Slots
             </button>
           </div>
         )}
