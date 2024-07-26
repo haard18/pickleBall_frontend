@@ -1,4 +1,4 @@
-import img from "../assets/images/pckl.jpg"
+import img from "../assets/card_image/cardpickel.jpg"
 import trf from '../assets/card_image(turf)/cardturf.jpg'
 type BookingCardProps = {
     title: string;
@@ -12,7 +12,7 @@ const BookingCard = ({ title, facility, rate, onclick }: BookingCardProps) => {
         <div>
             <div className="card bg-base-100 w-75 shadow-xl font-serif laptop:w-96">
                 <figure className="pt-10 justify-center w-[270px] laptop:w-[390px]">
-                    <img src={title==="Pickle Ball"?img:trf} alt={title} className="rounded-xl" />
+                    <img src={title==="PickeBall Turf"?img:trf} alt={title} className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{title}</h2>
