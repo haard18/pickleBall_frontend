@@ -24,8 +24,8 @@ const BookingComponent: React.FC = () => {
     try {
       const formattedStart = format(start, 'yyyy-MM-dd');
       const formattedEnd = format(end, 'yyyy-MM-dd');
-      const sport = localStorage.getItem('sport') || 'cricket';
-      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : 'pickleball1'}/${formattedStart}/${formattedEnd}`);
+      const sport = localStorage.getItem('sport');
+      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : sport==='pickleball1'?'pickleball1':'pickleball2'}/${formattedStart}/${formattedEnd}`);
       setSlots(
         response.data.slots.reduce((acc: Record<string, Slot[]>, slot: Slot) => {
           const date = new Date(slot.date).toLocaleDateString();
@@ -67,14 +67,14 @@ const BookingComponent: React.FC = () => {
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
-        <button 
+        <button
           onClick={() => setStartDate(subDays(startDate, 7))}
           className="btn btn-outline"
           disabled={isPreviousDisabled}
         >
           <FontAwesomeIcon icon={faCaretLeft} />
         </button>
-        <button 
+        <button
           onClick={() => setStartDate(addDays(startDate, 7))}
           className="btn btn-outline"
         >

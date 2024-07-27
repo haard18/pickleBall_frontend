@@ -77,7 +77,7 @@ const Register = () => {
                     <>
                         <div className="mb-4">
                             <label className="block md:inline-block md:w-1/4 md:mr-4 mb-2 md:mb-0">Name</label>
-                            <input type="text" className="w-full md:flex-1 input input-bordered" placeholder="SHIKHA" value={name} onChange={(e) => setName(e.target.value)} />
+                            <input type="text" className="w-full md:flex-1 input input-bordered" placeholder="daisy" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="mb-4">
                             <label className="block md:inline-block md:w-1/4 md:mr-4 mb-2 md:mb-0">Email</label>
