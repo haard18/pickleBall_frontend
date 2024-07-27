@@ -18,6 +18,7 @@ const MobileBookingComponent: React.FC = () => {
   const [selectedSlots, setSelectedSlots] = useState<Slot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(startOfToday());
+  const [selectedCourt, setSelectedCourt] = useState('court1'); // State for selected court
 
   const getSlots = async (start: Date, end: Date) => {
     setIsLoading(true);
@@ -25,8 +26,9 @@ const MobileBookingComponent: React.FC = () => {
       const sport = localStorage.getItem('sport') || 'cricket';
       const formattedStart = format(start, 'yyyy-MM-dd');
       const formattedEnd = format(end, 'yyyy-MM-dd');
+      const courtPath = selectedCourt === 'court1' ? 'pickleball1' : 'pickleball2'; // Adjust API endpoint based on selected court
 
-      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : 'pickleball1'}/${formattedStart}/${formattedEnd}`);
+      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : courtPath}/${formattedStart}/${formattedEnd}`);
       setSlots(response.data.slots);
       setIsLoading(false);
     } catch (error) {
@@ -37,7 +39,7 @@ const MobileBookingComponent: React.FC = () => {
 
   useEffect(() => {
     getSlots(currentDate, addDays(currentDate, 6));
-  }, [currentDate]);
+  }, [currentDate, selectedCourt]); // Add selectedCourt to dependency array
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots(prevSelectedSlots => {
@@ -61,6 +63,10 @@ const MobileBookingComponent: React.FC = () => {
     }
   };
 
+  const handleCourtChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCourt(event.target.value);
+  };
+
   // Filter slots for the current date
   const currentDateString = format(currentDate, 'yyyy-MM-dd');
   const currentDaySlots = slots.filter(slot => format(new Date(slot.date), 'yyyy-MM-dd') === currentDateString);
@@ -78,6 +84,16 @@ const MobileBookingComponent: React.FC = () => {
           minDate={startOfToday()} // Set the minimum date to today
           className="w-full p-2 border rounded"
         />
+      </div>
+      <div className="mb-4">
+        <select
+          value={selectedCourt}
+          onChange={handleCourtChange}
+          className="w-full p-2 border rounded"
+        >
+          <option value="court1">Court 1</option>
+          <option value="court2">Court 2</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 gap-4">
         {isLoading ? (
