@@ -18,14 +18,17 @@ const BookingComponent: React.FC = () => {
   const [selectedSlots, setSelectedSlots] = useState<Slot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState(startOfToday());
+  const [selectedCourt, setSelectedCourt] = useState('court1'); // Add state for selected court
 
   const getSlots = async (start: Date, end: Date) => {
     setIsLoading(true);
     try {
       const formattedStart = format(start, 'yyyy-MM-dd');
       const formattedEnd = format(end, 'yyyy-MM-dd');
-      const sport = localStorage.getItem('sport');
-      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${sport === 'cricket' ? 'cricket' : sport==='pickleball1'?'pickleball1':'pickleball2'}/${formattedStart}/${formattedEnd}`);
+      const sport = localStorage.getItem('sport') || 'cricket';
+      const court = sport === 'pickleball' ? selectedCourt : '';
+      const courtPath = court ? (court === 'court2' ? 'pickleball2' : 'pickleball1') : 'cricket';
+      const response = await axios.get(`https://pickleball.haardsolanki-itm.workers.dev/api/booking/getSlots/${courtPath}/${formattedStart}/${formattedEnd}`);
       setSlots(
         response.data.slots.reduce((acc: Record<string, Slot[]>, slot: Slot) => {
           const date = new Date(slot.date).toLocaleDateString();
@@ -43,7 +46,7 @@ const BookingComponent: React.FC = () => {
 
   useEffect(() => {
     getSlots(startDate, addDays(startDate, 6));
-  }, [startDate]);
+  }, [startDate, selectedCourt]); // Include selectedCourt in dependency array
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots(prevSelectedSlots => {
@@ -64,8 +67,26 @@ const BookingComponent: React.FC = () => {
   // Check if the current start date is before today
   const isPreviousDisabled = isBefore(startDate, startOfToday());
 
+  const handleCourtChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCourt(event.target.value);
+  };
+
+  const sport = localStorage.getItem('sport') || 'cricket';
+
   return (
     <div className="p-4">
+      {sport === 'pickleball' && (
+        <div className="mb-4">
+          <select
+            value={selectedCourt}
+            onChange={handleCourtChange}
+            className="w-full p-2 border rounded"
+          >
+            <option value="court1">Court 1</option>
+            <option value="court2">Court 2</option>
+          </select>
+        </div>
+      )}
       <div className="flex justify-between mb-4">
         <button
           onClick={() => setStartDate(subDays(startDate, 7))}

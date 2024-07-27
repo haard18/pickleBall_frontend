@@ -73,6 +73,7 @@ const MobileBookingComponent: React.FC = () => {
 
   // Format date heading as "25 July, 2024"
   const formattedDateHeading = format(currentDate, 'd MMMM, yyyy');
+  const sport = localStorage.getItem('sport') || 'cricket';
 
   return (
     <div className="p-4">
@@ -85,16 +86,18 @@ const MobileBookingComponent: React.FC = () => {
           className="w-full p-2 border rounded"
         />
       </div>
-      <div className="mb-4">
-        <select
-          value={selectedCourt}
-          onChange={handleCourtChange}
-          className="w-full p-2 border rounded"
-        >
-          <option value="court1">Court 1</option>
-          <option value="court2">Court 2</option>
-        </select>
-      </div>
+      {sport === 'pickleball' && (
+        <div className="mb-4">
+          <select
+            value={selectedCourt}
+            onChange={handleCourtChange}
+            className="w-full p-2 border rounded"
+          >
+            <option value="court1">Court 1</option>
+            <option value="court2">Court 2</option>
+          </select>
+        </div>
+      )}
       <div className="grid grid-cols-1 gap-4">
         {isLoading ? (
           <div>Loading...</div>

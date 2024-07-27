@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import BookingCard from './BookingCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fa1, fa2 } from '@fortawesome/free-solid-svg-icons';
@@ -9,17 +9,15 @@ import { useMediaQuery } from 'usehooks-ts'
 export const Choose = () => {
   const [card1, setcard1] = useState(true);
   const [card2, setcard2] = useState(false);
-  const [sport, setSport] = useState(localStorage.getItem('sport'));
+
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
-  const handleClick1 = (selectedSport: string) => {
+  const handleClick1 = () => {
     setcard1(false);
     setcard2(true);
-    localStorage.setItem('sport', selectedSport);
-
   }
 
-  const title = localStorage.getItem('sport');
+  const title=localStorage.getItem('sport');
 
   return (
     <>
@@ -32,11 +30,7 @@ export const Choose = () => {
               </div>
               <div className="timeline-end timeline-box">
                 {card1 ?
-                  <div className='flex w-full justify-center gap-5'>
-                    <BookingCard onclick={() => handleClick1(sport === 'pickleball' ? 'pickleball1' : 'cricket')}
-                      title={title} rate={"350"} facility={"Indoor turf 1"} />
-                    {sport != 'cricket' ? <BookingCard onclick={()=>{handleClick1('pickleball2')}} title={title + '2'} rate={"350"} facility={"Indoor turf 2"} /> : ""}
-                  </div>
+                  <BookingCard onclick={handleClick1} title={title} rate={"350"} facility={title==="pickleball"?"OutDoor Court":"Outdoor Turf"} />
                   : <div className="timeline-end flex items-center justify-between w-[68vw] flex-col laptop:flex-row laptop:w-[40vw]">
                     <p className='text-xl mb-2'> Choose a Facility</p>
                     {card2 && <button onClick={() => {
