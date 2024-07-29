@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { format, addDays, subDays, startOfToday } from 'date-fns';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +20,7 @@ const Admin_viewComponent: React.FC = () => {
   const [startDate, setStartDate] = useState(startOfToday());
   const [sport, setSport] = useState('cricket');
 
-  const getSlots = async (start: Date, end: Date) => {
+  const getSlots = useCallback(async (start: Date, end: Date) => {
     setIsLoading(true);
     try {
       const formattedStart = format(start, 'yyyy-MM-dd');
@@ -45,11 +45,11 @@ const Admin_viewComponent: React.FC = () => {
       console.error('Error fetching slots:', error);
       setIsLoading(false);
     }
-  };
+  }, [sport]);
 
   useEffect(() => {
     getSlots(startDate, addDays(startDate, 6));
-  }, [startDate, sport]);
+  }, [startDate, sport, getSlots]);
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots((prevSelectedSlots) => {

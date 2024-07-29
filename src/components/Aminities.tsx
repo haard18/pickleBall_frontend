@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { FaTint, FaCar, FaChair, FaToilet, FaLightbulb, FaTools } from 'react-icons/fa';
 
 

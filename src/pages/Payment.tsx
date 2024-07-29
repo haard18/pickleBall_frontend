@@ -1,4 +1,3 @@
-import React from 'react'
 import RazorpayButton from '../components/RazorPayButton'
 
 const Payment = () => {

@@ -1,8 +1,8 @@
-import React from 'react'
+
 import Navbar from '../components/Navbar'
 import hero from "../assets/images/WhatsApp_Image_2024-06-25_at_15.57.07_42191b53-removebg-preview.png"
 import Card from '../components/Card'
-import img1 from "../assets/images/pckl.jpg"
+
 import Footer from '../components/Footer'
 import Aminities from '../components/Aminities'
 
@@ -27,8 +27,8 @@ const Home = () => {
                 <h1 className='mobile:text-2xl laptop:text-4xl text-center mt-20'>Our Courts</h1>
 
                 <div className='flex flex-col items-center laptop:flex-row justify-center mt-3 ml-2 gap-4'>
-                    <Card rate='₹ 500' image={img1} title='Pickle Ball' location='Vadodara' />
-                    <Card rate='₹ 1400' image={img1} title='Football/Cricket' location='Vadodara' />
+                    <Card rate='₹ 500'  title='Pickle Ball' location='Vadodara' />
+                    <Card rate='₹ 1400'  title='Football/Cricket' location='Vadodara' />
                     
                 </div>
                 <div className="amenities flex justify-center mt-8 laptop:hidden">

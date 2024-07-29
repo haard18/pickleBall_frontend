@@ -1,4 +1,3 @@
-import React from 'react'
 import image1 from '../assets/carousal_pickleball/car1.jpg'
 import image2 from '../assets/carousal_pickleball/car2.jpg'
 import image3 from '../assets/carousal_pickleball/car3.jpg'

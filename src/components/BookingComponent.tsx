@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState, useCallback } from 'react';
 import { format, addDays, subDays, startOfToday, isBefore } from 'date-fns';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import RazorpayButton from './RazorPayButton';
 
 interface Slot {
   id: string;
@@ -19,8 +20,9 @@ const BookingComponent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState(startOfToday());
   const [selectedCourt, setSelectedCourt] = useState('court1'); // Add state for selected court
+  const [isPaying, setIsPaying] = useState(false);
 
-  const getSlots = async (start: Date, end: Date) => {
+  const getSlots = useCallback(async (start: Date, end: Date) => {
     setIsLoading(true);
     try {
       const formattedStart = format(start, 'yyyy-MM-dd');
@@ -42,11 +44,11 @@ const BookingComponent: React.FC = () => {
       console.error('Error fetching slots:', error);
       setIsLoading(false);
     }
-  };
+  }, [selectedCourt]);
 
   useEffect(() => {
     getSlots(startDate, addDays(startDate, 6));
-  }, [startDate, selectedCourt]); // Include selectedCourt in dependency array
+  }, [startDate, selectedCourt, getSlots]); // Include getSlots in dependency array
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots(prevSelectedSlots => {
@@ -60,8 +62,8 @@ const BookingComponent: React.FC = () => {
   };
 
   const bookSlots = () => {
-    console.log('Booking slots:', selectedSlots);
-    // Add booking logic here
+    // console.log('Booking slots:', selectedSlots);
+    setIsPaying(true);
   };
 
   // Check if the current start date is before today
@@ -129,6 +131,7 @@ const BookingComponent: React.FC = () => {
             </button>
           </div>
         )}
+        {isPaying && <RazorpayButton />}
       </div>
     </div>
   );

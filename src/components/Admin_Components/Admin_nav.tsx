@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Import useState from react
+import { useState } from 'react'; // Import useState from react
 import logo from "../../assets/images/logo.png";
 import Admin_viewComponent from './Admin_viewComponent';
 import AdminAllUsers from './Admin_AllUsers';
@@ -30,30 +30,30 @@ const AdminNav = () => {
     <>
       <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
         <div className="flex items-center">
-          <img src={logo} alt="USA Sports Logo" className="h-8 mr-4" />
-          <span className="font-semibold text-xl tracking-tight">USA Sports</span>
+          <a href="/" className='flex items-center'>
+
+            <img src={logo} alt="USA Sports Logo" className="h-8 mr-4" />
+            <span className="font-semibold text-xl tracking-tight">USA Sports</span>
+          </a>
         </div>
         <div className="flex space-x-2">
           <button
-            className={`${
-              view ? 'bg-gray-700' : 'bg-gray-900'
-            } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
+            className={`${view ? 'bg-gray-700' : 'bg-gray-900'
+              } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
             onClick={toggleView}
           >
             View Slots
           </button>
           <button
-            className={`${
-              viewBookings ? 'bg-gray-700' : 'bg-gray-900'
-            } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
+            className={`${viewBookings ? 'bg-gray-700' : 'bg-gray-900'
+              } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
             onClick={viewBooking}
           >
             View Bookings
           </button>
           <button
-            className={`${
-              allUsers ? 'bg-gray-700' : 'bg-gray-900'
-            } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
+            className={`${allUsers ? 'bg-gray-700' : 'bg-gray-900'
+              } hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 ease-in-out`}
             onClick={viewUsers}
           >
             All Users

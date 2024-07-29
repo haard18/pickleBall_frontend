@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { format, addDays, startOfToday } from 'date-fns';
 import DatePicker from 'react-datepicker';
@@ -20,7 +20,7 @@ const MobileBookingComponent: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(startOfToday());
   const [selectedCourt, setSelectedCourt] = useState('court1'); // State for selected court
 
-  const getSlots = async (start: Date, end: Date) => {
+  const getSlots = useCallback(async (start: Date, end: Date) => {
     setIsLoading(true);
     try {
       const sport = localStorage.getItem('sport') || 'cricket';
@@ -35,11 +35,11 @@ const MobileBookingComponent: React.FC = () => {
       console.error('Error fetching slots:', error);
       setIsLoading(false);
     }
-  };
+  }, [selectedCourt]);
 
   useEffect(() => {
     getSlots(currentDate, addDays(currentDate, 6));
-  }, [currentDate, selectedCourt]); // Add selectedCourt to dependency array
+  }, [currentDate, selectedCourt, getSlots]); // Add getSlots in dependency array
 
   const toggleSlotSelection = (slot: Slot) => {
     setSelectedSlots(prevSelectedSlots => {
