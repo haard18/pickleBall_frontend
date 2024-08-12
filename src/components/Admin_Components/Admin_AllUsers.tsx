@@ -55,10 +55,10 @@ const AdminAllUsers = () => {
         <tbody>
           {users.map((user) => (
             <tr key={user.id} className="border-t border-gray-200">
-              <td className="py-3 px-4">{user.id}</td>
-              <td className="py-3 px-4">{user.name}</td>
-              <td className="py-3 px-4">{user.email}</td>
-              <td className="py-3 px-4">{user.phoneNo}</td>
+              <td className="py-3 px-4 text-black">{user.id}</td>
+              <td className="py-3 px-4 text-black">{user.name}</td>
+              <td className="py-3 px-4 text-black">{user.email}</td>
+              <td className="py-3 px-4 text-black">{user.phoneNo}</td>
             </tr>
           ))}
         </tbody>
